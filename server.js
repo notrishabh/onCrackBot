@@ -19,7 +19,7 @@ client.on('message', async message => {
 
 	if (command === 'setup') {
         message.channel.send("I will send you notifications when new games are cracked!");
-        const {title, image, protections, releaseDate, crackDate, url} = await fetch('https://api.crackwatch.com/api/games?page=0&sort_by=crack_date&is_cracked=true&is_aaa=true')
+        var {title, image, protections, releaseDate, crackDate, url} = await fetch('https://api.crackwatch.com/api/games?page=0&sort_by=crack_date&is_cracked=true&is_aaa=true')
         .then(res => res.json())
         .then(msg => msg[0]);
         var rd = new Date(releaseDate).toString().split('GMT')[0];
@@ -35,6 +35,12 @@ client.on('message', async message => {
             var cdobj = new Date(obj.crackDate).toString().split('GMT')[0];
     
             if(title != obj.title){
+                title = obj.title;
+                image = obj.image;
+                protections = obj.protections;
+                releaseDate = obj.releaseDate;
+                crackDate = obj.crackDate;
+                url = obj.url;
                 
                 const embed = new MessageEmbed()
                 .setColor('#32a89e')
